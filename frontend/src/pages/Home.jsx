@@ -117,15 +117,19 @@ export default function Hero({ listingId }) {
       {/* =====================================
                     HERO SECTION
       ====================================== */}
-
+x
       <HeroSection />
+      <section id="host">
       <AboutSection />
+      </section>
+
       {/* <AmenitiesSection />  */}
       <ThingsToDoSection />
 
       {/* <GallerySection /> */}
-
-      <TestimonialCarousel />
+<section id="guest-reviews">
+      <TestimonialCarousel  />
+      </section>
       {/* <ThingsToDoSection /> */}
       {/* <ContactSection /> */}
       {showModal && (

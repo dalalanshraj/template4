@@ -19,10 +19,10 @@ import {
 // ==========================================
 
 const PROPERTY_VIDEOS = {
-  "million-dollar-view": "/videos/million-dollar-view.mp4",
-  "horizon": "/videos/horizon.mp4",
-  "ocean-dream": "/videos/ocean-dream.mp4",
-  "ocean-panorama": "/videos/ocean-panorama.mp4",
+  "million-dollar-view": "/million-dollar-view.mp4",
+  "horizon": "/horizon.mp4",
+  "ocean-dream": "/ocean-dream.mp4",
+  "ocean-panorama": "/ocean-panorama.mp4",
 };
 
 const FALLBACK_IMAGE = "/images/hero-fallback.webp";

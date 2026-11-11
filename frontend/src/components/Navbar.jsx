@@ -76,8 +76,8 @@ export default function Navbar() {
         },
       ],
     },
-    { title: "GUEST REVIEWS", to: "/guest-reviews" },
-    { title: "KNOW YOUR HOST", to: "/about-us" },
+    { title: "GUEST REVIEWS", to: "/#guest-reviews" },
+    { title: "KNOW YOUR HOST", to: "/#host" },
     {
       title: "SHOW ALL RENTALS",
       to: "/all-rentals",

@@ -361,7 +361,7 @@ export default function ReviewsSection() {
           TESTIMONIAL SECTION
       ====================================== */}
 
-      <section className="testimonial-section">
+      <section className="testimonial-section" >
 
         {/* HEADER */}
 
