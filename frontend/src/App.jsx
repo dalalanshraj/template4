@@ -55,12 +55,12 @@ function App() {
         <Route path="properties/:id" element={<PropertyDetail />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/about" element={<About />} />
-        <Route path="/contect-us" element={<Contact listingId="6adb7a6a6101b6fb9bebdd9b" />} />
+        <Route path="/contact-us" element={<Contact listingId="6adb7a6a6101b6fb9bebdd9b" />} />
         <Route path="/booking-policy" element={<BookingPolicy />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/things-to-do" element={<ThingsToDo />} />
         <Route path="/meet-the-owner" element={<MeetOwners />} />
-        <Route path="/results" element={<Results />} />
+        <Route path="/all-rentals" element={<Results />} />
         <Route path="/property-management" element={<PropertyManagementIntro />} />
         <Route path="/about-us" element={<AboutUs />} />
         {/* <Route path="/BookingPage" element={<BookingPage />} />

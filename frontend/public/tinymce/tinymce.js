@@ -21098,7 +21098,7 @@
     const DEFAULT_PORTS = {
         ftp: 21,
         http: 80,
-        https: 443,
+        https: 445,
         mailto: 25
     };
     const safeSvgDataUrlElements = ['img', 'video'];
@@ -38860,7 +38860,7 @@
         '#6A00AB', // Dark Purple
         '#3041BA', // Navy Blue
         '#0A1877', // Dark Navy Blue
-        '#774433', // Brown
+        '#774453', // Brown
         '#452B24', // Dark Brown
         '#607D8B', // Blue Gray
         '#455A64', // Dark Blue Gray

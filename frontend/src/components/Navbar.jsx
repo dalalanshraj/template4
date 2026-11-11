@@ -1,11 +1,21 @@
 
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+
+const LOGO =
+  "https://content.app-sources.com/s/24618439467748482/uploads/Logo/TMTTK_Logo-6201989.jpg";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+
   const location = useLocation();
 
   useEffect(() => {
@@ -24,12 +34,13 @@ export default function Navbar() {
     };
   }, []);
 
-  // Close mobile menu when the route changes
+  // Close menus when route changes
   useEffect(() => {
     setMobileOpen(false);
+    setActiveDropdown(null);
   }, [location.pathname]);
 
-  // Prevent background scrolling while the mobile menu is open
+  // Prevent background scroll on mobile
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
 
@@ -39,189 +50,408 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const navLinks = [
-    { title: "ALL RENTALS", to: "/properties/6adb7a6a6101b6fb9bebdd9b" },
-    { title: "ABOUT US", to: "/about-us" },
-    { title: "CONTACT US", to: "/contect-us" },
+    { title: "HOME", to: "/" },
+    {
+      title: "VIEW PROPERTIES",
+      children: [
+        {
+          title: "Million Dollar View",
+          subtitle: "Marathon · 4BR · Sleeps 8 · 285-Ft Private Pier",
+          to: "/properties/6ae8c80a68bee59f43da5f91",
+        },
+        {
+          title: "Horizon",
+          subtitle: "Marathon · 4BR · Sleeps 8 · Ocean-View Every Room",
+          to: "/property/YOUR_PROPERTY_ID_2",
+        },
+        {
+          title: "Ocean Dream",
+          subtitle: "Marathon · 4BR · Sleeps 8 · 140-Ft Water Frontage",
+          to: "/property/YOUR_PROPERTY_ID_3",
+        },
+        {
+          title: "Ocean Panorama",
+          subtitle: "Marathon · 4BR · Sleeps 8 · Coming Soon",
+          disabled: true,
+        },
+      ],
+    },
+    { title: "GUEST REVIEWS", to: "/guest-reviews" },
+    { title: "KNOW YOUR HOST", to: "/about-us" },
+    {
+      title: "SHOW ALL RENTALS",
+      to: "/all-rentals",
+    },
+    {
+      title: " THINGS TO DO ",
+       to: "/things-to-do",
+    },
+    { title: "CONTACT US", to: "/contact-us" },
   ];
 
+  const linkClass = (to) =>
+    `relative whitespace-nowrap text-[14px] xl:text-[13px]
+    font-medium tracking-[0.09em]
+    transition-colors duration-300
+ 
+    hover:text-[#B58A3B]
+    ${location.pathname === to
+      ? "text-[#B58A3B]"
+      : "text-[#000]"
+    }`;
+
   return (
-    <>
-      <header
+    <header
+      className={`
+        fixed inset-x-0 top-0 z-50
+        transition-all duration-500
+        ${isScrolled
+          ? "bg-[#E8F3FA]/95 shadow-md backdrop-blur-xl"
+          : "bg-transparent shadow-none"
+        }
+      `}
+    >
+      <div
         className={`
-          fixed inset-x-0 top-0 z-50
-          transition-all duration-700
-          ease-[cubic-bezier(0.22,1,0.36,1)]
+          relative mx-auto flex max-w-[2000px]
+          items-center justify-between
+          px-5 sm:px-8 lg:px-[3%]
+          transition-all duration-500
           ${isScrolled
-            ? "bg-white/95 shadow-lg backdrop-blur-xl"
-            : "bg-white/10 shadow-none backdrop-blur-[2px]"
+            ? "min-h-[100px] py-3"
+            : "min-h-[190px] py-4"
           }
         `}
       >
-        <div
+        {/* LOGO */}
+        <Link
+          to="/"
+          aria-label="Go to homepage"
           className={`
-    relative mx-auto flex max-w-[1600px]
-    items-center justify-between
-    px-5 sm:px-8 lg:px-12
-    transition-all duration-700
-    ease-in-out
-    ${isScrolled
-              ? "min-h-[76px] py-2"
-              : "min-h-[80px] py-3 bg-white"
-            }
-  `}
-        >
-          {/* Logo */}
-          {/* <Link
-            to="/"
-            aria-label="property Home"
-            className="
-    absolute   top-1/2 z-10
-flex shrink-0 items-center justify-center
-  "
-          >
-            <img
-              src="https://img1.wsimg.com/isteam/ip/2e56267e-2454-402a-b8aa-7978b25f726c/Mainlogo_REELPARADISE_Webpreview_Transparent.png/:/rs=h:386,cg:true,m/qt=q:95"
-              alt="property Santa Rosa Beach"
-              className={`
-       block w-auto object-contain
-      transition-all duration-700
-      ease-in-out
-      ${isScrolled
-                  ? "h-[58px] mt-[-30px] sm:h-[64px]"
-                  : "h-[100px] sm:h-[120px] lg:h-[150px]"
-                }
-    `}
-            />
-          </Link> */}
-           <Link
-              to="/"
-              aria-label="Go to homepage"
-              className="inline-block"
-            >
-              <span
-                className="text-3xl font-semibold uppercase tracking-tight text-[#171717] sm:text-4xl"
-                style={{ fontFamily: '"Oswald", sans-serif' }}
-              >
-                LOGO
-              </span>
-            </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="ml-auto hidden items-center gap-7 lg:flex xl:gap-10">
-            {navLinks.map((item) => (
-              <Link key={item.to} to={item.to}
-                
-                className={`
-        relative py-2 text-[13px] font-medium
-        tracking-[0.16em] xl:text-[14px]
-        transition-colors duration-300
-        hover:text-teal-600
-        after:absolute after:bottom-0 after:left-0
-        after:h-[1px] after:w-0 after:bg-teal-600
-        after:transition-all after:duration-300
-        hover:after:w-full
-        ${location.pathname === item.to
-                    ? "text-teal-700"
-                    : "text-[#252525]"
-                  }
-      `}
-                style={{ fontFamily: "Quicksand, sans-serif" }}
-              >
-                {item.title}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            type="button"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
-            aria-expanded={mobileOpen}
-            className="
-              relative z-50 flex h-11 w-11 shrink-0
-              items-center justify-center rounded-full
-              border border-gray-200/80 bg-white/80
-              text-gray-900 shadow-sm
-              transition-all duration-300
-              hover:bg-teal-50 hover:text-teal-700
-              lg:hidden
-            "
-          >
-            <span
-              className={`
-                absolute transition-all duration-300
-                ${mobileOpen
-                  ? "rotate-90 scale-0 opacity-0"
-                  : "rotate-0 scale-100 opacity-100"
-                }
-              `}
-            >
-              <Menu size={25} />
-            </span>
-
-            <span
-              className={`
-                absolute transition-all duration-300
-                ${mobileOpen
-                  ? "rotate-0 scale-100 opacity-100"
-                  : "-rotate-90 scale-0 opacity-0"
-                }
-              `}
-            >
-              <X size={25} />
-            </span>
-          </button>
-        </div>
-
-        {/* Mobile Navigation Panel */}
-        <div
-          className={`
-            absolute inset-x-0 top-full
-            overflow-hidden bg-white/98 shadow-xl
+            relative z-20 flex shrink-0
+            items-center justify-center
+            rounded-[20px] bg-white
+          drop-shadow-xl/50
             transition-all duration-500
-            ease-[cubic-bezier(0.22,1,0.36,1)]
-            lg:hidden
-            ${mobileOpen
-              ? "visible max-h-[80vh] translate-y-0 opacity-100"
-              : "invisible max-h-0 -translate-y-2 opacity-0"
+            ${isScrolled
+              ? "h-[85px] w-[220px]"
+              : "h-[130px] w-[255px]"
             }
           `}
         >
-          <nav className="max-h-[80vh] overflow-y-auto px-6 pb-6 pt-3">
-            {navLinks.map((item, index) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setMobileOpen(false)}
-                className={`
-                  flex items-center justify-between
-                  border-b border-gray-100 py-5
-                  text-sm font-medium tracking-[0.12em]
-                  transition-all duration-300
-                  hover:pl-2 hover:text-teal-600
-                  ${location.pathname === item.path
-                    ? "text-teal-700"
-                    : "text-gray-800"
-                  }
-                `}
-                style={{
-                  fontFamily: "Quicksand, sans-serif",
-                  transitionDelay: mobileOpen
-                    ? `${index * 60}ms`
-                    : "0ms",
-                }}
-              >
-                {item.title}
-                <ChevronDown
-                  size={16}
-                  className="-rotate-90 text-gray-400"
-                />
-              </Link>
-            ))}
-          </nav>
+          <h1 className="text-2xl font-bold text-[#102d3b]">LOGO</h1>
+          {/* <img
+            src={LOGO}
+            alt="Take Me To The Keys - Florida Keys Oceanfront Rentals"
+            className={`
+              block w-full object-contain
+              transition-all duration-500 
+              ${isScrolled
+                ? "max-h-[72px] px-4"
+                : "max-h-[150px] px-5 "
+              }
+            `}
+          /> */}
+        </Link>
+
+        {/* DESKTOP NAVIGATION */}
+
+
+        <nav className="ml-auto hidden items-center gap-5 lg:flex xl:gap-7 2xl:gap-9">
+
+          {navLinks.map((item) => (
+
+            <div
+              key={item.title}
+              className="relative flex h-full items-center"
+              onMouseEnter={() => {
+                if (item.children) {
+                  setActiveDropdown(item.title);
+                }
+              }}
+              onMouseLeave={() => setActiveDropdown(null)}
+            >
+
+              {item.children ? (
+                <>
+
+                  {/* Dropdown Trigger */}
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveDropdown(
+                        activeDropdown === item.title ? null : item.title
+                      )
+                    }
+                    className={`
+              ${linkClass("")}
+              flex items-center gap-2
+              whitespace-nowrap
+              transition-all duration-300
+            `}
+                  >
+                    {item.title}
+
+                    <ChevronDown
+                      size={14}
+                      className={`
+                transition-transform duration-300
+                ${activeDropdown === item.title
+                          ? "rotate-180"
+                          : ""
+                        }
+              `}
+                    />
+                  </button>
+
+                  {/* PREMIUM MEGA DROPDOWN */}
+
+                   
+
+         
+<div
+  className={`
+    absolute left-1/2 top-full z-[100]
+    w-[430px] max-w-[calc(100vw-30px)]
+    -translate-x-1/2 pt-3
+    transition-all duration-300
+    ${
+      activeDropdown === item.title
+        ? "visible translate-y-0 opacity-100"
+        : "invisible translate-y-2 opacity-0 pointer-events-none"
+    }
+  `}
+>
+  <div className="
+    overflow-hidden
+    rounded-[4px]
+    border border-[#D8DDE0]
+    border-t-[2px] border-t-[#C98A4B]
+    bg-white
+    shadow-[0_10px_30px_rgba(0,0,0,0.15)]
+  ">
+
+    {item.children.map((child) => {
+
+      const content = (
+        <div className="
+          group/item
+          flex min-h-[99px]
+          flex-col justify-center
+          px-[30px] py-4
+          transition-colors duration-300
+          hover:bg-[#F8F4F0]
+        ">
+
+          <div className="flex items-center gap-2">
+
+            <h3 className="
+              font-serif
+              text-[16px]
+              font-medium
+              text-[#000]
+              transition-colors
+              group-hover/item:text-[#B77A3E]
+            "style={{
+    fontFamily: "'Cormorant Garamond', serif",
+    fontWeight: 400,
+  }}>
+              {child.title}
+            </h3>
+
+            {!child.disabled && (
+              <span className="
+                text-[17px]
+                text-[#C98A4B]
+                transition-transform
+                group-hover/item:translate-x-1
+              ">
+                →
+              </span>
+            )}
+
+          </div>
+
+          <p className="
+            mt-2
+            
+            text-[12px]
+            italic
+            tracking-wide
+            text-[#64798A]
+          "    style={{
+    fontFamily: "'Cormorant Garamond', serif",
+    fontWeight: 400,
+  }}>
+            {child.subtitle}
+          </p>
+
         </div>
-      </header>
-    </>
+      );
+
+      return child.disabled ? (
+        <div key={child.title} className="opacity-50">
+          {content}
+        </div>
+      ) : (
+        <Link
+          key={child.to}
+          to={child.to}
+          onClick={() => setActiveDropdown(null)}
+          className="block border-b border-gray-100 last:border-0"
+        >
+          {content}
+        </Link>
+      );
+    })}
+
+  </div>
+</div>
+
+
+                </>
+              ) : (
+
+                <Link
+                  to={item.to}
+                  className={linkClass(item.to)}
+                >
+                  {item.title}
+                </Link>
+
+              )}
+
+            </div>
+
+          ))}
+
+        </nav>
+
+        {/* MOBILE TOGGLE */}
+        <button
+          type="button"
+          onClick={() => setMobileOpen((prev) => !prev)}
+          aria-label={
+            mobileOpen ? "Close navigation" : "Open navigation"
+          }
+          aria-expanded={mobileOpen}
+          className="
+            relative z-[60] flex h-12 w-12
+            items-center justify-center
+            rounded-full border border-gray-200
+            bg-white text-[#173447]
+            shadow-md transition-all
+            hover:bg-[#E8F3FA]
+            lg:hidden
+          "
+        >
+          {mobileOpen ? (
+            <X size={25} />
+          ) : (
+            <Menu size={25} />
+          )}
+        </button>
+      </div>
+
+      {/* MOBILE NAVIGATION */}
+      <div
+        className={`
+          absolute inset-x-0 top-full z-50
+          overflow-hidden bg-white shadow-2xl
+          transition-all duration-500
+          lg:hidden
+          ${mobileOpen
+            ? "visible max-h-[85vh] translate-y-0 opacity-100"
+            : "invisible max-h-0 -translate-y-3 opacity-0"
+          }
+        `}
+      >
+        <nav className="max-h-[85vh] overflow-y-auto px-6 py-4">
+          {navLinks.map((item) => (
+            <div
+              key={item.title}
+              className="border-b border-gray-100"
+            >
+              {item.children ? (
+                <>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setActiveDropdown(
+                        activeDropdown === item.title
+                          ? null
+                          : item.title
+                      )
+                    }
+                    className="
+                      flex w-full items-center
+                      justify-between py-5
+                      text-left text-sm font-semibold
+                      tracking-wider text-[#173447]
+                    "
+                  >
+                    <span>{item.title}</span>
+                    <ChevronDown
+                      size={17}
+                      className={`
+                        transition-transform duration-300
+                        ${activeDropdown === item.title
+                          ? "rotate-180"
+                          : ""
+                        }
+                      `}
+                    />
+                  </button>
+
+                  <div
+                    className={`
+                      grid transition-all duration-300
+                      ${activeDropdown === item.title
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                      }
+                    `}
+                  >
+                    <div className="overflow-hidden">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.to}
+                          to={child.to}
+                          onClick={() => setMobileOpen(false)}
+                          className="
+                            block py-3 pl-5
+                            text-sm text-gray-600
+                            hover:text-[#B58A3B]
+                          "
+                        >
+                          {child.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Link
+                  to={item.to}
+                  onClick={() => setMobileOpen(false)}
+                  className={`
+                    block py-5 text-sm
+                    font-semibold tracking-wider
+                    transition-colors
+                    ${location.pathname === item.to
+                      ? "text-[#B58A3B]"
+                      : "text-[#173447]"
+                    }
+                  `}
+                >
+                  {item.title}
+                </Link>
+              )}
+            </div>
+          ))}
+        </nav>
+      </div>
+    </header>
   );
 }

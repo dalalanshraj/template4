@@ -1,17 +1,11 @@
-import React, { useMemo, useState } from "react";
+
+import { useMemo, useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
-import { IoSearch } from "react-icons/io5";
 import {
-  CalendarDays,
-  Home,
-  Search,
-  ArrowRight,
+  Images,
+  ArrowUpRight,
 } from "lucide-react";
-
-// =====================================
-// FALLBACK IMAGES
-// =====================================
 
 const fallbackImages = [
   "/property/property1.jpg",
@@ -21,261 +15,149 @@ const fallbackImages = [
   "/property/property5.jpg",
 ];
 
-// =====================================
-// COMPONENT
-// =====================================
+const navigationItems = [
+  { title: "Description", id: "description" },
+  { title: "Pictures", id: "pictures" },
+  { title: "Amenities", id: "amenities" },
+  { title: "Location", id: "location" },
+  { title: "Video", id: "videos" },
+  { title: "Availability", id: "availability" },
+  { title: "Reviews", id: "reviews" },
+];
 
-const PropertyGallery = ({ images = [] }) => {
+export default function PropertyGallery({ images = [] }) {
   const [open, setOpen] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
 
-  // =====================================
-  // IMAGE URL
-  // =====================================
+const getImageUrl = (photo) => {
+  const base = import.meta.env.VITE_API_URL || "";
 
-  const getImageUrl = (photo) => {
-    const base = import.meta.env.VITE_API_URL || "";
+  // Remove /api from backend URL
+  const backendBase = base
+    .replace(/\/api\/?$/, "")
+    .replace(/\/$/, "");
 
-    // New Object Format
-    if (photo?.url) {
-      if (photo.url.startsWith("http")) {
-        return photo.url;
-      }
+  let url = "";
 
-      return base.replace(/\/$/, "") + "/" + photo.url.replace(/^\//, "");
-    }
+  if (typeof photo === "string") {
+    url = photo;
+  } else {
+    url =
+      photo?.url ||
+      photo?.secure_url ||
+      photo?.imageUrl ||
+      photo?.path ||
+      photo?.src ||
+      photo?.filename ||
+      photo?.image ||
+      "";
+  }
 
-    // Old String Format
-    if (typeof photo === "string") {
-      if (photo.startsWith("http")) {
-        return photo;
-      }
+  if (!url) return fallbackImages[0];
 
-      // Manual Images (/property/...)
-      if (photo.startsWith("/")) {
-        return photo;
-      }
+  // Already complete URL
+  if (url.startsWith("http")) {
+    return url;
+  }
 
-      return base.replace(/\/$/, "") + "/" + photo.replace(/^\//, "");
-    }
+  // Frontend public folder images
+  if (
+    url.startsWith("/property/") ||
+    url.startsWith("/images/")
+  ) {
+    return url;
+  }
 
-    return fallbackImages[0];
-  };
-
-  // =====================================
-  // GALLERY IMAGES
-  // =====================================
+  // Backend uploaded images
+  return `${backendBase}/${url.replace(/^\/+/, "")}`;
+};
 
   const galleryImages = useMemo(() => {
-    if (images?.length > 0) {
-      return images;
-    }
+    const validImages = images
+      .map(getImageUrl)
+      .filter(Boolean);
 
-    return fallbackImages;
+    return validImages.length ? validImages : fallbackImages;
   }, [images]);
 
-  // =====================================
-  // MAIN IMAGE
-  // =====================================
+  const slides = galleryImages.map((src) => ({ src }));
 
-  const mainImage = getImageUrl(galleryImages[0]);
-
-  // =====================================
-  // LIGHTBOX IMAGES
-  // =====================================
-
-  const slides = galleryImages.map((img) => ({
-    src: getImageUrl(img),
-  }));
-
-  // =====================================
-  // NAVIGATION
-  // =====================================
-
-  const navigationItems = [
-    {
-      title: "Description",
-      id: "description",
-    },
-    {
-      title: "Pictures",
-      id: "pictures",
-    },
-    {
-      title: "Amenities",
-      id: "amenities",
-    },
-    {
-      title: "Location",
-      id: "location",
-    },
-    {
-      title: "Video",
-      id: "videos",
-    },
-    {
-      title: "Availability",
-      id: "availability",
-    },
-    {
-      title: "Reviews",
-      id: "reviews",
-    },
-  ];
+  const openLightbox = (index) => {
+    setActiveImage(index);
+    setOpen(true);
+  };
 
   return (
     <>
-      {/* =====================================
-          HERO IMAGE
-      ===================================== */}
+      {/* PROPERTY GALLERY */}
+      <section
+        id="pictures"
+        className="w-full bg-[#F3F7FA] px-3 pb-5 pt-4 sm:px-5 lg:px-6"
+      >
+        <div className="mx-auto max-w-[1600px]">
 
-      <section className="w-full max-w-9xl   mx-auto px-3 sm:px-4 lg:px-6 pt-4 sm:pt-20">
-       <div
-  className="
-    group relative isolate
-    w-full overflow-hidden
-    rounded-2xl shadow-2xl
-    sm:rounded-[22px]
-  "
->
-  {/* Main Image */}
-  <img
-    src={mainImage}
-    alt=" "
-    className="
-      block h-[240px] w-full object-cover object-center
-      transition-transform duration-700 ease-out
-      xs:h-[280px]
-      sm:h-[360px]
-      md:h-[450px]
-      lg:h-[560px]
-      xl:h-[650px]
-      2xl:h-[700px]
-       
-    "
-  />
+          <div className="grid grid-cols-2 gap-2 overflow-hidden rounded-xl sm:gap-3 xl:h-[550px] xl:grid-cols-4 xl:grid-rows-2">
 
-  {/* Gradient Overlay */}
-  <div
-    className="
-      pointer-events-none absolute inset-0
-      bg-gradient-to-t
-      from-black/40 via-black/5 to-transparent
-    "
-  />
+            {/* MAIN IMAGE */}
+            <button
+              type="button"
+              onClick={() => openLightbox(0)}
+              className="group relative col-span-2 row-span-1 min-h-[260px] overflow-hidden sm:min-h-[350px] xl:row-span-2"
+            >
+              <img
+                src={galleryImages[0]}
+                alt="Property Images"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
-  {/* View Pictures Button */}
-  <button
-    type="button"
-    onClick={() => setOpen(true)}
-    aria-label="View more property pictures"
-    className="
-      absolute bottom-6 left-1/8 z-10
-      inline-flex min-h-[52px]
-      -translate-x-1/2 items-center
-      justify-center gap-3
-      whitespace-nowrap
-      bg-[#171717] px-5 py-3
-      text-[11px] font-semibold
-      tracking-[0.12em] text-white
-      shadow-[6px_6px_0px_#252525]
-      transition-all duration-300
-      hover:bg-[#315F60]
-      hover:shadow-[8px_8px_0px_#252525]
-      active:translate-y-1
-      active:shadow-none
-      sm:bottom-8 sm:min-h-[58px]
-      sm:px-7 sm:text-[13px]
-      sm:tracking-[0.16em]
-    "
-    style={{ fontFamily: '"Montserrat", sans-serif' }}
-  >
-    <IoSearch size={18} className="shrink-0" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
 
-    <span>VIEW MORE PICTURES</span>
+              <span className="absolute bottom-5 left-5 flex items-center gap-2 rounded-md bg-white px-4 py-3 text-[10px] font-bold tracking-[1.5px] text-[#191A2C] shadow-lg transition group-hover:bg-[#D18B48] group-hover:text-white sm:bottom-7 sm:left-7">
+                <Images size={16} />
+                VIEW ALL {galleryImages.length} PHOTOS
+              </span>
+            </button>
 
-    <ArrowRight
-      size={16}
-      className="transition-transform duration-300 group-hover:translate-x-1"
-    />
-  </button>
-</div>
-      </section>
-
-      {/* =====================================
-          PROPERTY NAVIGATION
-      ===================================== */}
-
-     <nav
-  className="
-    sticky top-[76px] lg:top-[80px]
-    z-40 mt-5 sm:mt-6
-    w-full border-y border-gray-200
-    bg-white/95 shadow-sm backdrop-blur-md
-  "
->
-        <div className="w-full max-w-7xl mx-auto">
-          <div
-            className="
-              flex
-              items-center
-
-              overflow-x-auto
-              overscroll-x-contain
-
-              scrollbar-hide
-
-              px-2
-              sm:px-4
-              lg:px-6
-            "
-          >
-            {navigationItems.map((item, index) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                className={`
-                  shrink-0
-
-                  px-3
-                  sm:px-4
-                  md:px-5
-                  lg:px-7
-font-light
-                  py-3
-                  sm:py-4
-
-                  text-xs
-                  sm:text-sm
-                  md:text-base
-                  lg:text-lg
-
-                  transition-all
-                  duration-300
-
-                  ${
-                    index === 0
-                      ? "text-black font-light  "
-                      : "text-gray-500 hover:text-black"
-                  }
-                `}
-                style={{
-                  fontFamily: "'Quicksand', sans-serif",
-                }}
+            {/* FOUR SMALL IMAGES */}
+            {galleryImages.slice(1, 5).map((image, index) => (
+              <button
+                type="button"
+                key={`${image}-${index}`}
+                onClick={() => openLightbox(index + 1)}
+                className="group relative min-h-[135px] overflow-hidden sm:min-h-[200px] xl:min-h-0"
               >
-                {item.title}
-              </a>
+                <img
+                  src={image}
+                  alt={`Property view ${index + 2}`}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+
+                <div className="absolute inset-0 bg-black/0 transition group-hover:bg-black/15" />
+
+                {index === 3 && galleryImages.length > 5 && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/45 text-white">
+                    <span className="text-xs font-bold tracking-widest">
+                      +{galleryImages.length - 5} PHOTOS
+                    </span>
+                  </div>
+                )}
+              </button>
             ))}
+
           </div>
         </div>
-      </nav>
-
-      {/* =====================================
-          LIGHTBOX
-      ===================================== */}
-
-      <Lightbox open={open} close={() => setOpen(false)} slides={slides} />
+      </section>
+ 
+      {/* LIGHTBOX */}
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={slides}
+        index={activeImage}
+        on={{
+          view: ({ index }) => setActiveImage(index),
+        }}
+      />
     </>
   );
-};
-
-export default PropertyGallery;
+}

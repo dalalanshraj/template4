@@ -293,545 +293,363 @@ export default function Contact({ listingId }) {
       ? Math.ceil((form.checkOut - form.checkIn) / (1000 * 60 * 60 * 24))
       : 0;
 
-  return (
-    <>
-      {/* =========================================
-                    HERO
-      ========================================= */}
+  
+return (
+  <main
+    className="w-full overflow-x-clip bg-[#F3F8FB] mt-46"
+    style={{ fontFamily: "'Quicksand', sans-serif" }}
+  >
+    {/* HERO */}
+    <section
+      className="relative flex min-h-[360px] items-center bg-cover bg-center bg-no-repeat sm:min-h-[460px] lg:min-h-[560px]"
+      style={{
+        backgroundImage: "url('https://content.app-sources.com/s/24618439467748482/uploads/Contact_us/Contact_Us-6012445.webp?format=webp')",
+      }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-r from-[#102A3A]/45 via-[#102A3A]/10 to-transparent" />
 
-      <section className="relative h-[20vh] flex items-center justify-center text-white mt-20">
-        <div className="relative text-center px-6">
-          <h2
-            className="
-        text-[30px] font-semibold
-        uppercase leading-tight
-        tracking-[-0.035em]
-        text-[#171717]
-        drop-shadow-[2px_3px_1px_rgba(0,0,0,0.25)]
-        sm:text-4xl
-        lg:text-[48px]
-        xl:text-[50px]
-      "
-            style={{
-              fontFamily: '"Oswald", sans-serif',
-            }}
-          >
-           Plan Your Getaway
-          </h2>
-          {/* <p className="text-gray-500 max-w-xl mx-auto">
-            Discover comfort, luxury, and unforgettable stays with us.
-          </p> */}
-        </div>
-      </section>
+      <div className="relative z-10 mx-auto w-full max-w-[1450px] px-5 pb-12 pt-24 sm:px-8 lg:px-12">
+        <h1 className="text-[46px] font-light leading-tight tracking-[-2px] text-white sm:text-[65px] md:text-[80px] lg:text-[94px]">
+          Get In Touch
+        </h1>
+      </div>
 
+      {/* Curved hero bottom */}
+      <div className="absolute bottom-[-1px] left-0 w-full">
+        <svg
+          viewBox="0 0 1440 100"
+          preserveAspectRatio="none"
+          className="block h-[45px] w-full sm:h-[75px]"
+          aria-hidden="true"
+        >
+          <path
+            d="M0 80 C340 0 850 20 1100 65 C1250 95 1350 90 1440 65 L1440 100 L0 100 Z"
+            fill="#F3F8FB"
+          />
+        </svg>
+      </div>
+    </section>
 
-      <section className="bg-[] py-2 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
-          {/* HEADING */}
+    {/* CONTACT CONTENT */}
+    <section className="relative z-10 mx-auto w-full max-w-[1400px] px-4 pb-20 sm:px-8 lg:px-12">
+      <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
 
-          {/* MAIN */}
+        {/* LEFT SIDE: FORM */}
+        <div className="min-w-0 pt-8 sm:pt-12 lg:pt-10">
+          <form onSubmit={handleSubmit} className="space-y-5">
 
-          <div className="">
-            {/* LEFT */}
-
+            {/* NAME */}
             <div>
-              <div className="space-y-6 mb-1 grid grid-cols-1 lg:grid-cols-3 gap-14 lg:gap-20">
-                {/* LOCATION */}
+              <label htmlFor="contact-name" className="mb-2 block text-sm text-[#405761]">
+                Name <span className="text-[#D18B48]">*</span>
+              </label>
+              <input
+                id="contact-name"
+                type="text"
+                required
+                autoComplete="name"
+                placeholder="Please Tell Us Your Name"
+                value={form.name}
+                onChange={(e) =>
+                  setForm({ ...form, name: e.target.value })
+                }
+                className="w-full rounded-full border border-[#DADFE1] bg-white px-6 py-4 text-sm text-[#243E49] outline-none transition focus:border-[#C8884A] focus:ring-2 focus:ring-[#C8884A]/15"
+              />
+            </div>
 
-                <div className="bg-white rounded-[28px] p-6 shadow-sm">
-                  <div className="flex items-start gap-4">
-                    <div
-                      className="w-14 h-14 rounded-full bg-[#f8a847] flex items-center justify-center  
-                    text-[#fff]
-                  "
-                      style={{
-                        fontFamily: "'Quicksand' , sans-serif",
-                      }}
-                    >
-                      <IoLocation size={24} />
-                    </div>
+            {/* EMAIL */}
+            <div>
+              <label htmlFor="contact-email" className="mb-2 block text-sm text-[#405761]">
+                Email <span className="text-[#D18B48]">*</span>
+              </label>
+              <input
+                id="contact-email"
+                type="email"
+                required
+                autoComplete="email"
+                placeholder="Please Enter Your Email Address"
+                value={form.email}
+                onChange={(e) =>
+                  setForm({ ...form, email: e.target.value })
+                }
+                className="w-full rounded-full border border-[#DADFE1] bg-white px-6 py-4 text-sm text-[#243E49] outline-none transition focus:border-[#C8884A] focus:ring-2 focus:ring-[#C8884A]/15"
+              />
+            </div>
 
-                    <div>
-                      <h4 className="  uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[16px]
-            mb-1
-          ">
-                        Location
-                      </h4>
+            {/* PHONE */}
+            <div>
+              <label htmlFor="contact-phone" className="mb-2 block text-sm text-[#405761]">
+                Phone <span className="text-[#D18B48]">*</span>
+              </label>
+              <input
+                id="contact-phone"
+                type="tel"
+                required
+                autoComplete="tel"
+                placeholder="Enter Your Best Contact Number"
+                value={form.phone}
+                onChange={(e) =>
+                  setForm({ ...form, phone: e.target.value })
+                }
+                className="w-full rounded-full border border-[#DADFE1] bg-white px-6 py-4 text-sm text-[#243E49] outline-none transition focus:border-[#C8884A] focus:ring-2 focus:ring-[#C8884A]/15"
+              />
+            </div>
 
-                      <p className="text-gray-600 text-base md:text-xl lg:text-[18px] leading-relaxed font-light">
-                        Panama City Beach
-                      </p>
-                    </div>
-                  </div>
-                </div>
+            {/* DATES */}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="min-w-0">
+                <label className="mb-2 block text-sm text-[#405761]">
+                  Check In <span className="text-[#D18B48]">*</span>
+                </label>
+                <DatePicker
+                  selected={form.checkIn}
+                  selectsStart
+                  startDate={form.checkIn}
+                  endDate={form.checkOut}
+                  minDate={new Date()}
+                  required
+                  placeholderText="Select Check In"
+                  dateFormat="MMM dd, yyyy"
+                  wrapperClassName="w-full"
+                  onChange={(date) =>
+                    setForm({
+                      ...form,
+                      checkIn: date,
+                      checkOut:
+                        form.checkOut && date && form.checkOut <= date
+                          ? null
+                          : form.checkOut,
+                    })
+                  }
+                  className="w-full rounded-full border border-[#DADFE1] bg-white px-5 py-4 text-sm outline-none focus:border-[#C8884A]"
+                />
+              </div>
 
-                {/* EMAIL */}
-
-                <div className="bg-white rounded-[28px] p-6 shadow-sm">
-                  <div className="flex items-start gap-4">
-                    <div
-                      className="w-14 h-14 rounded-full bg-[#f8a847] flex items-center justify-center  
-                    text-[#fff]
-                  "
-                      style={{
-                        fontFamily: "'Quicksand' , sans-serif",
-                      }}
-                    >
-                      <MdEmail size={24} />
-                    </div>
-
-                    <div>
-                      <h4 className="  uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[16px]
-            mb-1
-          ">
-                        Email
-                      </h4>
-
-                      <p className="text-gray-600 text-base md:text-xl lg:text-[18px] leading-relaxed font-light">
-                        {listing?.property?.email || "info@example.com"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* PHONE */}
-
-                <div className="bg-white rounded-[28px] p-6 shadow-sm">
-                  <div className="flex items-start gap-4">
-                    <div
-                      className="w-14 h-14 rounded-full bg-[#f8a847] flex items-center justify-center  
-                    text-[#fff]
-                  "
-                      style={{
-                        fontFamily: "'Quicksand' , sans-serif",
-                      }}
-                    >
-                      <FaPhoneAlt size={20} />
-                    </div>
-
-                    <div>
-                      <h4 className="  uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[16px]
-            mb-1
-          ">
-                        Phone
-                      </h4>
-
-                      <p className="text-gray-600 text-base md:text-xl lg:text-[18px] leading-relaxed font-light">
-                        {listing?.property?.phone || "Phone not available"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="min-w-0">
+                <label className="mb-2 block text-sm text-[#405761]">
+                  Check Out <span className="text-[#D18B48]">*</span>
+                </label>
+                <DatePicker
+                  selected={form.checkOut}
+                  selectsEnd
+                  startDate={form.checkIn}
+                  endDate={form.checkOut}
+                  minDate={
+                    form.checkIn
+                      ? new Date(
+                          form.checkIn.getFullYear(),
+                          form.checkIn.getMonth(),
+                          form.checkIn.getDate() + 1
+                        )
+                      : new Date()
+                  }
+                  required
+                  placeholderText="Select Check Out"
+                  dateFormat="MMM dd, yyyy"
+                  wrapperClassName="w-full"
+                  onChange={(date) =>
+                    setForm({ ...form, checkOut: date })
+                  }
+                  className="w-full rounded-full border border-[#DADFE1] bg-white px-5 py-4 text-sm outline-none focus:border-[#C8884A]"
+                />
               </div>
             </div>
 
-            {/* RIGHT */}
+            {/* GUESTS */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="min-w-0">
+                <label htmlFor="contact-adults" className="mb-2 block text-sm text-[#405761]">
+                  Adults *
+                </label>
+                <input
+                  id="contact-adults"
+                  type="number"
+                  min="1"
+                  required
+                  placeholder="Adults"
+                  value={form.adults}
+                  onChange={(e) =>
+                    setForm({ ...form, adults: e.target.value })
+                  }
+                  className="w-full rounded-full border border-[#DADFE1] bg-white px-5 py-4 text-sm outline-none focus:border-[#C8884A]"
+                />
+              </div>
 
-         
-<form
-  onSubmit={handleSubmit}
-  className="mx-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-xl sm:rounded-3xl"
->
-  {/* FORM HEADER */}
-  <div className="border-b border-gray-100 bg-gray-50/80 px-5 py-7 sm:px-8 sm:py-9 md:px-10">
-     
+              <div className="min-w-0">
+                <label htmlFor="contact-kids" className="mb-2 block text-sm text-[#405761]">
+                  Kids
+                </label>
+                <input
+                  id="contact-kids"
+                  type="number"
+                  min="0"
+                  placeholder="Kids"
+                  value={form.kids}
+                  onChange={(e) =>
+                    setForm({ ...form, kids: e.target.value })
+                  }
+                  className="w-full rounded-full border border-[#DADFE1] bg-white px-5 py-4 text-sm outline-none focus:border-[#C8884A]"
+                />
+              </div>
+            </div>
 
-    <h2
-      className="text-3xl font-semibold uppercase leading-tight tracking-tight text-[#171717] sm:text-4xl md:text-5xl"
-      style={{ fontFamily: '"Oswald", sans-serif' }}
-    >
-      Book Your Stay
-    </h2>
+            {/* MESSAGE */}
+            <div>
+              <label htmlFor="contact-message" className="mb-2 block text-sm text-[#405761]">
+                Message <span className="text-[#D18B48]">*</span>
+              </label>
+              <textarea
+                id="contact-message"
+                rows={4}
+                required
+                placeholder="How can we help you?"
+                value={form.message}
+                onChange={(e) =>
+                  setForm({ ...form, message: e.target.value })
+                }
+                className="w-full resize-y rounded-[28px] border border-[#405C66] bg-white px-6 py-4 text-sm text-[#243E49] outline-none focus:border-[#C8884A]"
+              />
+            </div>
 
-  
-  </div>
+            {nights > 0 && (
+              <p className="text-sm text-[#405761]">
+                Length of stay: <strong>{nights} nights</strong>
+              </p>
+            )}
 
-  {/* FORM BODY */}
-  <div className="space-y-7 p-5 sm:p-8 md:p-10">
+            {status.message && (
+              <p
+                role="status"
+                className={`rounded-xl p-3 text-sm ${
+                  status.type === "success"
+                    ? "bg-green-50 text-green-700"
+                    : "bg-red-50 text-red-700"
+                }`}
+              >
+                {status.message}
+              </p>
+            )}
 
-    {/* CONTACT DETAILS */}
-    <div>
-      {/* <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-        Contact Information
-      </h3> */}
+            {/* SUBMIT */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-full bg-[#C98A4B] px-8 py-5 text-xl font-medium text-white transition duration-300 hover:bg-[#B57637] disabled:cursor-not-allowed disabled:opacity-60 sm:text-2xl"
+            >
+              {loading ? "Sending..." : "Submit"}
+            </button>
+          </form>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div>
-          <label className="uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[13px]
-            mb-6">
-            Full Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="name"
-            autoComplete="name"
-            placeholder="Enter your full name"
-            required
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-            value={form.name}
-            onChange={(e) =>
-              setForm({ ...form, name: e.target.value })
-            }
-          />
-        </div>
+          {/* QUOTE */}
+          <div className="mt-16 sm:mt-20">
+            <p
+              className="text-xl italic leading-[1.8] text-[#3C5961] sm:text-2xl"
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            >
+              "Every stay here begins long before the keys change hands —
+              with a question, a reply, and a house being quietly made
+              ready for people we haven't met yet."
+            </p>
 
-        <div>
-          <label className="uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[13px]
-            mb-6">
-            Email Address <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="email"
-            name="email"
-            autoComplete="email"
-            placeholder="you@example.com"
-            required
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-            value={form.email}
-            onChange={(e) =>
-              setForm({ ...form, email: e.target.value })
-            }
-          />
-        </div>
-
-        <div className="sm:col-span-2">
-          <label className="uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[13px]
-            mb-6">
-            Phone Number <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            autoComplete="tel"
-            placeholder="Enter your phone number"
-            required
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-            value={form.phone}
-            onChange={(e) =>
-              setForm({ ...form, phone: e.target.value })
-            }
-          />
-        </div>
-      </div>
-    </div>
-
-    {/* STAY DETAILS */}
-    <div>
-      <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-        Your Stay
-      </h3>
-
-      {/* Dates */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <div className="min-w-0">
-          <label className="uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[13px]
-            mb-6">
-            Check In <span className="text-red-500">*</span>
-          </label>
-          <DatePicker
-            selected={form.checkIn}
-            selectsStart
-            startDate={form.checkIn}
-            endDate={form.checkOut}
-            minDate={new Date()}
-            placeholderText="Select check-in date"
-            dateFormat="MMM dd, yyyy"
-            required
-            onChange={(date) => {
-              setForm({
-                ...form,
-                checkIn: date,
-                checkOut:
-                  form.checkOut && date && form.checkOut <= date
-                    ? null
-                    : form.checkOut,
-              });
-            }}
-            wrapperClassName="block w-full"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-          />
-        </div>
-
-        <div className="min-w-0">
-          <label className="uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[13px]
-            mb-6">
-            Check Out <span className="text-red-500">*</span>
-          </label>
-          <DatePicker
-            selected={form.checkOut}
-            selectsEnd
-            startDate={form.checkIn}
-            endDate={form.checkOut}
-            minDate={
-              form.checkIn
-                ? new Date(form.checkIn.getFullYear(), form.checkIn.getMonth(), form.checkIn.getDate() + 1)
-                : new Date(new Date().setHours(0, 0, 0, 0))
-            }
-            placeholderText="Select check-out date"
-            dateFormat="MMM dd, yyyy"
-            required
-            onChange={(date) =>
-              setForm({ ...form, checkOut: date })
-            }
-            wrapperClassName="block w-full"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-          />
-        </div>
-      </div>
-
-      {/* Guests */}
-      <div className="mt-4 grid grid-cols-2 gap-4">
-        <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
-            Adults <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="number"
-            name="adults"
-            min="1"
-            required
-            placeholder="Number of adults"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-            value={form.adults}
-            onChange={(e) =>
-              setForm({ ...form, adults: e.target.value })
-            }
-          />
-        </div>
-
-        <div>
-          <label className="uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[13px]
-            mb-6">
-            Kids
-          </label>
-          <input
-            type="number"
-            name="kids"
-            min="0"
-            placeholder="Number of kids"
-            className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-            value={form.kids}
-            onChange={(e) =>
-              setForm({ ...form, kids: e.target.value })
-            }
-          />
-        </div>
-      </div>
-    </div>
-
-    {/* MESSAGE */}
-    <div>
-      <label className="uppercase
-            tracking-[3px]
-            md:tracking-[4px]
-           text-black
-            text-xs
-            md:text-[13px]
-            mb-6">
-        Additional Message
-      </label>
-      <textarea
-        name="message"
-        rows={4}
-        placeholder="Tell us about any special requests..."
-        className="w-full resize-y rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5 text-sm outline-none transition placeholder:text-gray-400 focus:border-[#315F60] focus:bg-white focus:ring-2 focus:ring-[#315F60]/10"
-        value={form.message}
-        onChange={(e) =>
-          setForm({ ...form, message: e.target.value })
-        }
-      />
-    </div>
-
-    {/* NIGHTS */}
-    {nights > 0 && (
-      <div className="flex items-center justify-between rounded-xl border border-[#315F60]/15 bg-[#315F60]/5 px-4 py-3.5">
-        <span className="text-sm text-gray-600">Length of stay</span>
-        <span className="font-semibold text-[#315F60]">
-          {nights} {nights === 1 ? "night" : "nights"}
-        </span>
-      </div>
-    )}
-
-    {/* STATUS */}
-    {status.message && (
-      <div
-        role="status"
-        className={`rounded-xl border px-4 py-3.5 text-sm ${
-          status.type === "success"
-            ? "border-green-200 bg-green-50 text-green-700"
-            : "border-red-200 bg-red-50 text-red-700"
-        }`}
-      >
-        {status.message}
-      </div>
-    )}
-
-    {/* SUBMIT */}
-    <div className="flex flex-col gap-4 border-t border-gray-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
-      <p className="max-w-sm text-xs leading-relaxed text-gray-500">
-        Submitting this form sends an inquiry. Your booking is not confirmed
-        until our team confirms it.
-      </p>
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="group inline-flex min-h-[54px] w-full shrink-0 items-center justify-center gap-3 bg-[#171717] px-6 py-4 text-xs font-semibold tracking-[0.15em] text-white shadow-[5px_5px_0px_#252525] transition-all duration-300 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-[#315F60] hover:shadow-[7px_7px_0px_#252525] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:min-w-[210px]"
-        style={{ fontFamily: '"Montserrat", sans-serif' }}
-      >
-        {loading ? "SENDING..." : "SEND BOOKING"}
-
-        <ArrowRight
-          size={17}
-          className="transition-transform duration-300 group-hover:translate-x-1"
-        />
-      </button>
-    </div>
-  </div>
-</form>
- 
+            <p
+              className="mt-3 text-xl italic text-[#C98A4B]"
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            >
+              — Your Hosts
+            </p>
           </div>
         </div>
 
-        {/* DATEPICKER CSS */}
+        {/* RIGHT SIDE: CONTACT INFORMATION */}
+        <aside className="relative min-w-0 bg-white px-6 py-10 shadow-[0_15px_40px_rgba(20,40,50,0.06)] sm:px-10 sm:py-14 lg:-mt-24 lg:px-12 lg:py-20">
+          <h2
+            className="text-2xl font-semibold italic text-[#C98A4B] sm:text-[28px]"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            A quiet word. A real reply.
+          </h2>
 
-        <style>{`
+          <p className="mt-8 text-base leading-[2] text-[#48616B] sm:text-lg">
+            Every message comes straight to us — not a team,
+            not a call centre, just your hosts and their inbox.
+            We read each one ourselves and write back as soon as we can.
+            Whether you're deciding on a family getaway,
+            planning a reunion, or simply wondering about
+            one small detail before you book — we'd love to hear from you.
+          </p>
 
-.react-datepicker {
-  border: none !important;
-  border-radius: 20px !important;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  font-family: inherit;
-}
+          <div className="my-9 h-[2px] w-full bg-[#C98A4B]" />
 
-.react-datepicker__header {
-  background: white !important;
-  border-bottom: 1px solid #eee !important;
-  padding-top: 15px;
-}
+          <h3 className="text-lg font-bold uppercase text-[#36525B]">
+            Reach Us Directly
+          </h3>
 
-.react-datepicker__current-month {
-  font-weight: 600;
-  font-size: 16px;
-}
+          <div className="mt-7 space-y-4 break-words text-base leading-7 sm:text-lg">
+            <p>
+              <strong className="text-[#36525B]">Email: </strong>
+              {listing?.property?.email ? (
+                <a
+                  href={`mailto:${listing.property.email}`}
+                  className="text-[#C98A4B] hover:underline"
+                >
+                  {listing.property.email}
+                </a>
+              ) : (
+                <span className="text-[#78909A]">your@mail.com</span>
+              )}
+            </p>
 
-.react-datepicker__day-name,
-.react-datepicker__day {
-  width: 38px;
-  height: 38px;
-  line-height: 38px;
-  margin: 2px;
-  border-radius: 10px;
-}
+            <p>
+              <strong className="text-[#36525B]">Phone: </strong>
+              {listing?.property?.phone ? (
+                <a
+                  href={`tel:${listing.property.phone}`}
+                  className="text-[#C98A4B] hover:underline"
+                >
+                  {listing.property.phone || "000-000-0000"}
+                </a>
+              ) : (
+                <span className="text-[#78909A]">000-000-0000</span>
+              )}
+            </p>
 
-.react-datepicker__day.available-day {
-  background: #d1fae5 !important;
-}
+            <p>
+              <strong className="text-[#36525B]">Hours: </strong>
+              <span className="text-[#C98A4B]">
+             Always within reach — 24 / 7
+              </span>
+            </p>
 
-.react-datepicker__day.blocked-day {
-  background: #5C5CFF !important;
-  color: white !important;
-}
+            
+          </div>
 
-.react-datepicker__day.hold-day {
-  background: #facc15 !important;
-  color: black !important;
-}
+          <div className="mt-9 h-[2px] w-full bg-[#C98A4B]" />
 
-.react-datepicker__day.checkin-day {
-  background: linear-gradient(
-    135deg,
-    #d1fae5 50%,
-    #5C5CFF 50%
-  ) !important;
-}
+          <p
+            className="mt-10 text-xl italic text-[#C98A4B]"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            We look forward to hearing from you.
+          </p>
+        </aside>
+      </div>
+    </section>
 
-.react-datepicker__day.checkout-day {
-  background: linear-gradient(
-    315deg,
-    #d1fae5 50%,
-    #5C5CFF 50%
-  ) !important;
-}
+    {/* BOTTOM ORANGE WAVE */}
+    <div className="w-full overflow-hidden">
+      <svg
+        viewBox="0 0 1440 75"
+        preserveAspectRatio="none"
+        className="block h-[45px] w-full sm:h-[75px]"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 65 C300 0 620 0 880 42 C1100 80 1300 60 1440 45 L1440 75 L0 75 Z"
+          fill="#C98A4B"
+        />
+      </svg>
+    </div>
+  </main>
+);
 
-.react-datepicker__day.turnover-day {
-  position: relative !important;
-  overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    #5C5CFF 50%,
-    #5C5CFF 50%
-  ) !important;
-}
-
-.react-datepicker__day.turnover-day::after {
-  content: "";
-  position: absolute;
-  width: 160%;
-  height: 2px;
-  background: black;
-  top: 50%;
-  left: -30%;
-  transform: rotate(-45deg);
-}
-
-.react-datepicker__day.past-day {
-  background: #f1f1f1 !important;
-  opacity: 0.5;
-}
-
-.react-datepicker__day--outside-month {
-  visibility: hidden !important;
-}
-
-      `}</style>
-      </section>
-    </>
-  );
 }

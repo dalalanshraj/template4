@@ -229,7 +229,7 @@ export const deleteUser = async (req, res) => {
     });
   }
 };
-``;
+;
 
 export const changeUserPassword = async (req, res) => {
 

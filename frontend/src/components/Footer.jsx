@@ -1,223 +1,240 @@
+
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import { Link } from "react-router-dom";
-import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FiMail, FiPhone, FiArrowUpRight } from "react-icons/fi";
-import { HiOutlineLocationMarker } from "react-icons/hi";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import {
+  FaFacebookF,
+  FaInstagram,
+} from "react-icons/fa";
+import {
+  FiPhone,
+  FiArrowUpRight,
+} from "react-icons/fi";
 
 export default function Footer({ listingId }) {
   const [contactNumber, setContactNumber] = useState("");
   const [email, setEmail] = useState("");
 
   useEffect(() => {
-  if (!listingId) return;
+    if (!listingId) return;
 
-  const fetchContact = async () => {
-    try {
-      const res = await api.get(`/listings/${listingId}`);
+    const fetchContact = async () => {
+      try {
+        const res = await api.get(`/listings/${listingId}`);
 
-      const phone = res.data?.property?.phone || "";
-      const emailAddress = res.data?.property?.email || "";
+        setContactNumber(res.data?.property?.phone || "");
+        setEmail(res.data?.property?.email || "");
+      } catch (error) {
+        console.error("Error fetching contact:", error);
+      }
+    };
 
-      setContactNumber(phone);
-      setEmail(emailAddress);
+    fetchContact();
+  }, [listingId]);
 
-      console.log("Phone:", phone);
-      console.log("Email:", emailAddress);
-    } catch (error) {
-      console.error("Error fetching contact:", error);
-    }
-  };
-
-  fetchContact();
-}, [listingId]);
-
-
-  const quickLinks = [
+  const importantLinks = [
     { name: "Home", to: "/" },
-    { name: " All Rentals", to: "/properties/6adb7a6a6101b6fb9bebdd9b" },
-    { name: "About Us", to: "/about" },
-    { name: "Contact Us", to: "/contect-us" },
+    { name: "BOOK NOW", to: "/properties/6adb7a6a6101b6fb9bebdd9b" },
+    { name: "Guest Reviews", to: "/guest-reviews" },
+    { name: "Top Things To Do", to: "/things-to-do" },
+    { name: "Where To Eat", to: "/where-to-eat" },
+  ];
+
+  const propertyLinks = [
+    { name: "Million Dollar View", to: "/million-dollar-view" },
+    { name: "Horizon", to: "/horizon" },
+    { name: "Ocean Dream", to: "/ocean-dream" },
+    { name: "Home", to: "/" },
+    { name: "Show All Rentals", to: "/properties/6adb7a6a6101b6fb9bebdd9b" },
   ];
 
   const socialLinks = [
-    {
-      name: "Facebook",
-      href: " ",
-      icon: FaFacebookF,
-    },
-    {
-      name: "Instagram",
-      href: " ",
-      icon: FaInstagram,
-    },
-    {
-      name: "LinkedIn",
-      href: " ",
-      icon: FaLinkedinIn,
-    },
+    { name: "Facebook", icon: FaFacebookF, href: null },
+    { name: "Instagram", icon: FaInstagram, href: null },
   ];
 
   return (
-    <footer className="relative mt-16 overflow-hidden bg-[#f7f8f7] text-[#171717] sm:mt-20">
-      {/* Decorative top line */}
-      <div className="h-1 w-full bg-[#315F60]" />
+    <footer className="relative mt-16 overflow-hidden bg-[#f3f7fa] text-[#354f52] sm:mt-20">
 
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+      {/* Decorative background */}
+
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-20 left-0 h-[300px] w-full rotate-[-8deg] bg-white/80" />
+      </div>
+
+      <div className="relative mx-auto max-w-[1450px] px-5 py-14 sm:px-8 lg:px-12 lg:py-16">
+
         {/* MAIN FOOTER */}
-        <div className="grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 lg:grid-cols-3 lg:gap-16 lg:py-16">
-          {/* BRAND & ADDRESS */}
-          <div>
-            <Link to="/" aria-label="Go to homepage" className="inline-block">
-              <span
-                className="text-3xl font-semibold uppercase tracking-tight text-[#171717] sm:text-4xl"
-                style={{ fontFamily: '"Oswald", sans-serif' }}
-              >
-                LOGO
-              </span>
-            </Link>
 
-            <p className="text-gray-600 text-base md:text-xl lg:text-[15px] leading-relaxed font-light">
-              Your next coastal escape starts here. Discover a comfortable stay
-              and make your vacation memorable.
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[1.55fr_0.75fr_0.75fr_0.95fr] lg:gap-12">
+
+          {/* BRAND */}
+
+          <div>
+
+            <h2
+              className="text-2xl font-semibold uppercase tracking-[1px] sm:text-[30px]"
+              style={{ fontFamily: "'Open Sans', Arial", fontWeight: 400 }}
+            >
+              <span className="text-[#354f52]">
+                TAKE ME TO
+              </span>{" "}
+              <span className="text-[#c8884a]">
+                THE KEYS
+              </span>
+            </h2>
+
+            <p
+              className="mt-7 max-w-[520px] text-lg italic leading-[1.5] text-[#405b60] sm:text-[20px]"
+              style={{ fontFamily: "Georgia, serif" }}
+            >
+              Four oceanfront homes nestled across Marathon,
+              Florida Keys — the Atlantic a few steps one way,
+              the Gulf sunset a few steps the other. Private
+              pools, wide-open kitchens, and enough space that
+              everybody gets their own view of the water.
+              We built or developed these homes ourselves,
+              and we still answer the phone ourselves.
+              Come watch the horizon with us.
             </p>
 
-            <div className="mt-6 flex items-start gap-3">
-              <HiOutlineLocationMarker
-                size={22}
-                className="mt-1 shrink-0 text-[#315F60]"
-              />
-
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=34990+Emerald+Coast+Pkwy+Suite+300+Destin+FL+32541"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 text-base md:text-xl lg:text-[15px] leading-relaxed font-light"
-              >
-               Panama City Beach, Florida
-              </a>
-            </div>
-          </div>
-
-          {/* CONTACT */}
-          <div>
-            <h3
-              className="mb-5 text-xl font-semibold uppercase tracking-wide"
-              style={{ fontFamily: '"Oswald", sans-serif' }}
+            <p
+              className="mt-7 text-xl text-[#c8884a] sm:text-2xl"
+              style={{ fontFamily: "'Open Sans', sans-serif" }}
             >
-              Get In Touch
-            </h3>
-
-            <div className="space-y-4">
-              {email ? (
-                <a
-                  href={`mailto:${email}`}
-                  className="group flex min-w-0 items-start gap-3 text-sm text-gray-600 transition hover:text-[#315F60]"
-                >
-                  <FiMail
-                    size={19}
-                    className="mt-0.5 shrink-0 text-[#315F60]"
-                  />
-                  <span className="break-all">{email}</span>
-                </a>
-              ) : (
-                <p className="flex items-center gap-3 text-gray-600 text-base md:text-xl lg:text-[15px] leading-relaxed font-light">
-                  <FiMail size={19} className="shrink-0 text-[#315F60]" />
-                  Contact us by email
-                </p>
-              )}
-
-              {contactNumber ? (
-                <a
-                  href={`tel:${contactNumber.replace(/[^\d+]/g, "")}`}
-                  className="flex items-start gap-3 text-sm text-gray-600 transition hover:text-[#315F60]"
-                >
-                  <FiPhone
-                    size={19}
-                    className="mt-0.5 shrink-0 text-[#315F60]"
-                  />
-                  <span>{contactNumber}</span>
-                </a>
-              ) : (
-                <p className="flex items-center gap-3 text-gray-600 text-base md:text-xl lg:text-[15px] leading-relaxed font-light">
-                  <FiPhone size={19} className="shrink-0 text-[#315F60]" />
-                  Contact number available upon request
-                </p>
-              )}
-            </div>
+              "Hosted By  "
+            </p>
 
             {/* SOCIAL LINKS */}
-            <div className="mt-7">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
-                Follow Us
-              </p>
 
-              <div className="flex flex-wrap gap-3">
-                {socialLinks.map(({ name, href, icon: Icon }) => (
+            <div className="mt-8 flex items-center gap-7">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
                   <a
-                    key={name}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={name}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[#f8a847] text-white transition duration-300 hover:-translate-y-1  "
+                    key={social.name}
+                    href={social.href || undefined}
+                    aria-label={social.name}
+                    title={social.name}
+                    onClick={
+                      social.href
+                        ? undefined
+                        : (e) => e.preventDefault()
+                    }
+                    className="text-[#405b60] transition hover:text-[#c8884a]"
                   >
-                    <Icon size={16} />
+                    <Icon size={19} />
                   </a>
-                ))}
-              </div>
+                );
+              })}
             </div>
           </div>
-
-          {/* QUICK LINKS */}
+          {/* IMPORTANT */}
           <div>
-            <h3
-              className="mb-5 text-xl font-semibold uppercase tracking-wide"
-              style={{ fontFamily: '"Oswald", sans-serif' }}
-            >
-              Quick Links
+            <h3 className=" text-[20px] font-medium uppercase text-[#c8884a]"
+              style={{ fontFamily: "'Open Sans', Arial", fontWeight: 400 }}>
+              Important
             </h3>
+            <div className="mt-4 h-[2px] w-30 shrink-0 bg-[#c8884a]" />
+            <ul className="space-y-4 mt-5">
 
-            <ul className="space-y-1">
-              {quickLinks.map((item) => (
+              {importantLinks.map((item) => (
                 <li key={item.name}>
                   <Link
                     to={item.to}
-                    className="group flex items-center justify-between gap-3 border-b border-gray-200 py-3 text-sm text-gray-600 transition hover:border-[#315F60] hover:text-[#315F60]"
-                  >
-                    <span>{item.name}</span>
-                    <FiArrowUpRight
-                      size={16}
-                      className="shrink-0 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-100"
-                    />
+                    className="text-base text-[#526b70]  transition hover:text-[#c8884a] sm:text-[17px]"
+                    style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 300 }}>
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-        </div>
+          {/* PROPERTIES */}
+          <div>
+            <h3 className=" text-[20px] font-medium uppercase text-[#c8884a]"
+              style={{ fontFamily: "'Open Sans', Arial", fontWeight: 400 }}>
+              Properties
+            </h3>
+            <div className="mt-4 h-[2px] w-35 shrink-0 bg-[#c8884a]" />
+            <ul className="space-y-4 mt-5">
+              {propertyLinks.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.to}
+                    className="text-base text-[#526b70]  transition hover:text-[#c8884a] sm:text-[17px]"
+                    style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 300 }}>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        {/* BOTTOM FOOTER */}
-        <div className="flex flex-col gap-5 border-t border-gray-200 py-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="order-2 text-center text-xs  leading-relaxed font-light text-gray-500 sm:order-1 sm:text-left sm:text-sm">
-            © {new Date().getFullYear()}{" "} &nbsp;
-            <a className="uppercase text-[#315F60]
-            tracking-[3px]
-            md:tracking-[3px] hover:underline hover:text-black
-           " href="https://digifyamerica.com/">Digify America</a> &nbsp;All
-            Rights Reserved.
-          </p>
+          {/* CONTACT */}
 
-          <Link
-            to="/admin/login"
-            className="order-1 inline-flex items-center justify-center gap-2 self-center   px-4 py-2.5 text-sm font-medium text-[#171717]  hover:underline sm:order-2 sm:self-auto"
-          >
-            <MdOutlineAdminPanelSettings size={18} />
-            Login
-          </Link>
+          <div>
+            <h3 className=" text-[20px] font-medium uppercase text-[#c8884a]"
+              style={{ fontFamily: "'Open Sans', Arial", fontWeight: 400 }}>
+              Contact
+            </h3>
+            <div className="mt-4 h-[2px] w-30 shrink-0 bg-[#c8884a]" />
+            <div className="space-y-3 text-base leading-relaxed text-[#526b70] sm:text-lg mt-5">
+              <p className="font-medium"
+                style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 300 }}>
+                 Your Name
+              </p>
+              <a
+                href={`mailto:${email || "your@mail.com"}`}
+                className="block break-all transition hover:text-[#c8884a]"
+                style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 300 }}>
+                {email || "your@mail.com"}
+              </a>
+              <a
+                href={`tel:${(contactNumber || "000-000-0000").replace(/[^\d+]/g, "")}`}
+                className="block transition hover:text-[#c8884a]"
+                style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 300 }}>
+                {contactNumber || "000-000-0000"}
+              </a>
+              <a
+                href={`tel:${(contactNumber || "000-000-0000").replace(/[^\d+]/g, "")}`}
+                aria-label="Call us"
+                className="inline-flex h-9 w-9 items-center justify-center rounded border border-[#c8884a] text-[#c8884a] transition hover:bg-[#c8884a] hover:text-white"
+                style={{ fontFamily: "'Manrope', sans-serif", fontWeight: 300 }}>
+                <FiPhone size={18} />
+              </a>
+            </div>
+            <Link
+              to="/contact-us"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#c8884a] px-7 py-3 text-base text-white shadow-sm transition hover:bg-[#ad7138] hover:shadow-lg"
+            >
+              Contact Us
+              <FiArrowUpRight size={17} />
+            </Link>
+          </div>
         </div>
       </div>
+      {/* COPYRIGHT */}
+
+      <div className="relative bg-black px-5 py-5 text-white">
+
+        <div className="mx-auto flex max-w-[1450px] flex-col items-center justify-between gap-3 sm:flex-row">
+
+          <p className="text-center text-sm font-light text-white/80">
+            © Copyright {new Date().getFullYear()}.  <a
+              href="https://digifyamerica.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:text-[#c8884a]"
+            >
+              Digify America
+            </a> &nbsp;
+            All Rights Reserved.
+          </p>
+        </div>
+
+      </div>
+
     </footer>
   );
 }
